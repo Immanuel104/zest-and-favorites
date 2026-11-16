@@ -1,0 +1,96 @@
+{
+  "source": "code archive (Alx-capston-recipe-finder-, Vite + React 18 + React Router SPA hosted on Vercel)",
+  "capabilities": [
+    {
+      "capability": "code: pages (home/search, favorites, recipe details), nav, footer, dark mode toggle",
+      "source": "src/components/*.jsx, src/App.jsx",
+      "outcome": "migrate",
+      "status": "verified",
+      "next_action": "done (browser-checked search, details incl. reload and old colon links, favorites add/remove, dark mode)"
+    },
+    {
+      "capability": "assets: background images, logo, social icons",
+      "source": "public/Images/*",
+      "outcome": "migrate",
+      "status": "verified",
+      "next_action": "done (browser-checked search, details incl. reload and old colon links, favorites add/remove, dark mode)"
+    },
+    {
+      "capability": "external provider: TheMealDB public API (no key)",
+      "source": "src/services/Data.jsx",
+      "outcome": "preserve",
+      "status": "verified",
+      "next_action": "done (browser-checked search, details incl. reload and old colon links, favorites add/remove, dark mode)"
+    },
+    {
+      "capability": "favorites storage",
+      "source": "browser localStorage key 'favlist'",
+      "outcome": "preserve (browser-local, no accounts in source)",
+      "status": "verified",
+      "next_action": "done (browser-checked search, details incl. reload and old colon links, favorites add/remove, dark mode)"
+    },
+    {
+      "capability": "schema / database",
+      "source": "none detected",
+      "outcome": "not applicable",
+      "status": "verified",
+      "next_action": "none"
+    },
+    {
+      "capability": "records",
+      "source": "none (no data store)",
+      "outcome": "not applicable",
+      "status": "verified",
+      "next_action": "none"
+    },
+    {
+      "capability": "auth identities / authorization",
+      "source": "none detected",
+      "outcome": "not applicable",
+      "status": "verified",
+      "next_action": "none"
+    },
+    {
+      "capability": "uploaded file bytes / storage",
+      "source": "none",
+      "outcome": "not applicable",
+      "status": "verified",
+      "next_action": "none"
+    },
+    {
+      "capability": "public endpoints, callbacks, webhooks, schedules",
+      "source": "none",
+      "outcome": "not applicable",
+      "status": "verified",
+      "next_action": "none"
+    },
+    {
+      "capability": "secrets",
+      "source": "none required",
+      "outcome": "not applicable",
+      "status": "verified",
+      "next_action": "none"
+    },
+    {
+      "capability": "hosting rewrite (vercel.json SPA fallback)",
+      "source": "vercel.json",
+      "outcome": "replace with TanStack file routes",
+      "status": "verified",
+      "next_action": "done (browser-checked search, details incl. reload and old colon links, favorites add/remove, dark mode)"
+    },
+    {
+      "capability": "cutover",
+      "source": "recipe-finder-nine-inky.vercel.app",
+      "outcome": "user decision",
+      "status": "pending",
+      "next_action": "User publishes on Lovable and optionally retires Vercel deployment"
+    },
+    {
+      "capability": "verification",
+      "source": "-",
+      "outcome": "required",
+      "status": "verified",
+      "next_action": "done (browser-checked search, details incl. reload and old colon links, favorites add/remove, dark mode)"
+    }
+  ]
+}

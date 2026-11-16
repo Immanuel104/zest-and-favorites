@@ -10,33 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as FavoriteListRouteImport } from './routes/FavoriteList'
+import { Route as RecipeDetailsIdMealRouteImport } from './routes/RecipeDetails.$idMeal'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FavoriteListRoute = FavoriteListRouteImport.update({
+  id: '/FavoriteList',
+  path: '/FavoriteList',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RecipeDetailsIdMealRoute = RecipeDetailsIdMealRouteImport.update({
+  id: '/RecipeDetails/$idMeal',
+  path: '/RecipeDetails/$idMeal',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/FavoriteList': typeof FavoriteListRoute
+  '/RecipeDetails/$idMeal': typeof RecipeDetailsIdMealRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/FavoriteList': typeof FavoriteListRoute
+  '/RecipeDetails/$idMeal': typeof RecipeDetailsIdMealRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/FavoriteList': typeof FavoriteListRoute
+  '/RecipeDetails/$idMeal': typeof RecipeDetailsIdMealRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/FavoriteList' | '/RecipeDetails/$idMeal'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/FavoriteList' | '/RecipeDetails/$idMeal'
+  id: '__root__' | '/' | '/FavoriteList' | '/RecipeDetails/$idMeal'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  FavoriteListRoute: typeof FavoriteListRoute
+  RecipeDetailsIdMealRoute: typeof RecipeDetailsIdMealRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +68,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/FavoriteList': {
+      id: '/FavoriteList'
+      path: '/FavoriteList'
+      fullPath: '/FavoriteList'
+      preLoaderRoute: typeof FavoriteListRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/RecipeDetails/$idMeal': {
+      id: '/RecipeDetails/$idMeal'
+      path: '/RecipeDetails/$idMeal'
+      fullPath: '/RecipeDetails/$idMeal'
+      preLoaderRoute: typeof RecipeDetailsIdMealRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  FavoriteListRoute: FavoriteListRoute,
+  RecipeDetailsIdMealRoute: RecipeDetailsIdMealRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

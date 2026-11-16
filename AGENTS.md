@@ -28,3 +28,11 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+
+- Recipe data comes from TheMealDB's public API through query options in `src/lib/mealdb.ts`; routes preload with `ensureQueryData` so detail pages work on direct visits and reloads.
+- Favorites live in browser localStorage under the key `favlist` (`src/lib/favorites.ts`) to stay compatible with the original site; there are no user accounts.
+- Keep the original URL paths (`/FavoriteList`, `/RecipeDetails/$idMeal`) so existing links keep working.
+- Page chrome (backdrop photo, nav, footer) lives in `src/components/site/SiteShell.tsx`; dark mode is a `.dark` class on the wrapper rendered by `ThemeProvider` in `src/lib/theme.tsx`.
+- Custom utilities in `src/styles.css` must read raw tokens (`var(--glass)`), not `var(--color-*)`, so dark-mode overrides apply.
