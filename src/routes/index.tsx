@@ -1,27 +1,26 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { allMealsQuery } from "@/lib/mealdb";
 import { SiteShell, PanelMessage } from "@/components/site/SiteShell";
 import { Intro } from "@/components/site/Intro";
 import { SearchPanel } from "@/components/site/SearchPanel";
+import { StarterCollection } from "@/components/site/StarterCollection";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "The Recipe — Find recipes by dish name" },
+      { title: "The Recipe — African & everyday recipes" },
       {
         name: "description",
-        content: "Search a collection of global recipes by dish name and see ingredients, instructions and videos.",
+        content: "Find African favourites like ugali, pilau and jollof rice, plus everyday basics, with ingredients and step-by-step instructions.",
       },
-      { property: "og:title", content: "The Recipe — Find recipes by dish name" },
+      { property: "og:title", content: "The Recipe — African & everyday recipes" },
       {
         property: "og:description",
-        content: "Search a collection of global recipes by dish name and see ingredients, instructions and videos.",
+        content: "Find African favourites like ugali, pilau and jollof rice, plus everyday basics, with ingredients and step-by-step instructions.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
-  loader: ({ context }) => context.queryClient.ensureQueryData(allMealsQuery()),
   component: Home,
   pendingComponent: () => (
     <SiteShell>
@@ -44,6 +43,7 @@ function Home() {
           <SearchPanel />
         </div>
       </main>
+      <StarterCollection />
     </SiteShell>
   );
 }

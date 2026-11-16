@@ -8,7 +8,7 @@ export function Footer() {
     <footer className="items-center gap-5 lg:flex">
       <div className="glass-panel lift-hover h-fit rounded-3xl p-5 text-center lg:rounded-l-none lg:rounded-r-full">
         <p>
-          Developed by : <i className="text-brand">Omar Albaz</i> / Front End Web Dev
+          Developed by : <i className="text-brand">Immanuel Ndunda</i> / Front End Web Dev
         </p>
       </div>
       <div className="glass-panel lift-hover mt-3 justify-around rounded-3xl p-5 sm:flex lg:ml-auto lg:mt-0 lg:w-[60%] lg:justify-between lg:rounded-l-full lg:rounded-r-none">

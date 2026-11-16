@@ -1,7 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import type { Meal } from "@/lib/mealdb";
 
-export function MealCard({ meal }: { meal: Meal }) {
+type CardMeal = Pick<Meal, "idMeal" | "strMeal" | "strCategory" | "strArea" | "strMealThumb">;
+
+export function MealCard({ meal }: { meal: CardMeal }) {
   return (
     <Link
       to="/RecipeDetails/$idMeal"
@@ -16,8 +18,36 @@ export function MealCard({ meal }: { meal: Meal }) {
         <p className="p-2">
           Category : <i className="text-brand">{meal.strCategory}</i>
         </p>
-        <p className="p-2">
-          Area : <i className="text-brand">{meal.strArea}</i>
+        {meal.strArea && (
+          <p className="p-2">
+            Area : <i className="text-brand">{meal.strArea}</i>
+          </p>
+        )}
+      </div>
+    </Link>
+  );
+}
+
+/** Small photo tile used in the home page starter collection. */
+export function MealTile({ meal }: { meal: CardMeal }) {
+  return (
+    <Link
+      to="/RecipeDetails/$idMeal"
+      params={{ idMeal: meal.idMeal }}
+      className="glass-panel lift-hover glow-hover flex flex-col overflow-hidden rounded-2xl"
+    >
+      {meal.strMealThumb && (
+        <img
+          src={meal.strMealThumb}
+          alt={meal.strMeal}
+          loading="lazy"
+          className="aspect-square w-full object-cover"
+        />
+      )}
+      <div className="p-3">
+        <p className="font-semibold leading-snug">{meal.strMeal}</p>
+        <p className="mt-1 text-xs">
+          <i className="text-brand">{[meal.strArea, meal.strCategory].filter(Boolean).join(" · ")}</i>
         </p>
       </div>
     </Link>

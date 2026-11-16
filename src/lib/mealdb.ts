@@ -1,4 +1,5 @@
 import { queryOptions } from "@tanstack/react-query";
+import { LOCAL_RECIPES, findLocalRecipe } from "@/data/starter-recipes";
 
 /** A meal as returned by TheMealDB (only the fields the app reads are typed). */
 export type Meal = {
@@ -21,12 +22,14 @@ async function getJson<T>(url: string): Promise<T> {
   return (await res.json()) as T;
 }
 
-export const allMealsQuery = () =>
+/** Search the whole TheMealDB collection plus this app's own recipes. */
+export const searchMealsQuery = (query: string) =>
   queryOptions({
-    queryKey: ["meals"],
+    queryKey: ["search", query.trim().toLowerCase()],
     queryFn: async () => {
-      const data = await getJson<{ meals: Meal[] | null }>(`${API}/search.php?s=`);
-      return data.meals ?? [];
+      const q = query.trim();
+      const data = await getJson<{ meals: Meal[] | null }>(`${API}/search.php?s=${encodeURIComponent(q)}`);
+      return searchMeals([...LOCAL_RECIPES, ...(data.meals ?? [])], q);
     },
     staleTime: 1000 * 60 * 10,
   });
@@ -35,6 +38,8 @@ export const mealByIdQuery = (idMeal: string) =>
   queryOptions({
     queryKey: ["meal", idMeal],
     queryFn: async () => {
+      const local = findLocalRecipe(idMeal);
+      if (local) return local;
       const data = await getJson<{ meals: Meal[] | null }>(
         `${API}/lookup.php?i=${encodeURIComponent(idMeal)}`,
       );

@@ -1,14 +1,17 @@
 import { useState, type FormEvent } from "react";
-import { useSuspenseQuery } from "@tanstack/react-query";
-import { allMealsQuery, searchMeals } from "@/lib/mealdb";
+import { useQuery } from "@tanstack/react-query";
+import { searchMealsQuery } from "@/lib/mealdb";
+import { STARTER_SECTIONS } from "@/data/starter-recipes";
 import { MealCard } from "./MealCard";
 
+const SUGGESTIONS = ["Ugali", "Pilau", "Jollof", "Chapati", "Rice", "Sushi"];
+
 export function SearchPanel() {
-  const { data: meals } = useSuspenseQuery(allMealsQuery());
   const [text, setText] = useState("");
   const [query, setQuery] = useState<string | null>(null);
 
-  const results = query ? searchMeals(meals, query) : [];
+  const search = useQuery({ ...searchMealsQuery(query ?? ""), enabled: !!query });
+  const results = search.data ?? [];
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -34,11 +37,31 @@ export function SearchPanel() {
         </button>
       </form>
 
-      {query && results.length === 0 && (
+      <div className="flex flex-wrap justify-center gap-2 text-sm">
+        <span>Try :</span>
+        {SUGGESTIONS.map((s) => (
+          <button
+            key={s}
+            type="button"
+            onClick={() => setQuery(s)}
+            className="glass-panel rounded-full px-3 py-0.5 hover:text-brand"
+          >
+            {s}
+          </button>
+        ))}
+      </div>
+
+      {query && search.isFetching && <p className="text-brand">Searching...</p>}
+
+      {query && search.isError && (
+        <p className="text-destructive">Couldn't reach the recipe service. Please try again.</p>
+      )}
+
+      {query && search.isSuccess && results.length === 0 && (
         <div className="glass-panel-strong max-w-md rounded-2xl p-4 text-sm">
           <p className="font-semibold text-brand">“{query}” was not found. Try one of these:</p>
           <div className="mt-3 flex flex-wrap gap-2">
-            {meals.map((m) => (
+            {STARTER_SECTIONS.flatMap((s) => s.recipes).map((m) => (
               <button
                 key={m.idMeal}
                 type="button"
@@ -53,7 +76,7 @@ export function SearchPanel() {
       )}
 
       {results.length > 0 && (
-        <div className="flex w-full flex-col gap-4">
+        <div className="flex max-h-[70vh] w-full flex-col gap-4 overflow-y-auto pr-1">
           {results.map((meal) => (
             <MealCard key={meal.idMeal} meal={meal} />
           ))}

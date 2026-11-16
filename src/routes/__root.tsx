@@ -85,7 +85,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "The Recipe" },
       { name: "description", content: "Find recipes by dish name, with ingredients, instructions and videos." },
-      { name: "author", content: "Omar Albaz" },
+      { name: "author", content: "Immanuel Ndunda" },
       { property: "og:title", content: "The Recipe" },
       { property: "og:description", content: "Find recipes by dish name, with ingredients, instructions and videos." },
       { property: "og:type", content: "website" },

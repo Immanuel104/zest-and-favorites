@@ -53,3 +53,22 @@ describe("favorites", () => {
     expect(removeFavorite([meals[1]!], "1")).toBeNull();
   });
 });
+
+import { STARTER_SECTIONS, findLocalRecipe } from "@/data/starter-recipes";
+
+describe("starter recipes", () => {
+  it("shows African favourites before everyday basics", () => {
+    expect(STARTER_SECTIONS[0]?.title).toBe("African favourites");
+    expect(STARTER_SECTIONS[1]?.title).toBe("Everyday basics");
+  });
+  it("includes rice and sushi in everyday basics", () => {
+    const names = STARTER_SECTIONS[1]!.recipes.map((r) => r.strMeal);
+    expect(names).toContain("Sushi");
+    expect(names.some((n) => n.toLowerCase().includes("rice"))).toBe(true);
+  });
+  it("opens the app's own recipes by id with their ingredients", () => {
+    const jollof = findLocalRecipe("local-jollof-rice");
+    expect(jollof?.strMeal).toBe("Jollof Rice");
+    expect(getIngredients(jollof!).length).toBe(12);
+  });
+});

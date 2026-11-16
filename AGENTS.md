@@ -31,7 +31,8 @@ use the editor.
 
 ## Project rules
 
-- Recipe data comes from TheMealDB's public API through query options in `src/lib/mealdb.ts`; routes preload with `ensureQueryData` so detail pages work on direct visits and reloads.
+- Recipe data comes from TheMealDB's public API through query options in `src/lib/mealdb.ts`, merged with the app's own recipes in `src/data/starter-recipes.ts` (ids prefixed `local-`, checked before the API); routes preload with `ensureQueryData` so detail pages work on direct visits and reloads.
+- The home page starter collection is a static list in `src/data/starter-recipes.ts`, so it renders without any network call.
 - Favorites live in browser localStorage under the key `favlist` (`src/lib/favorites.ts`) to stay compatible with the original site; there are no user accounts.
 - Keep the original URL paths (`/FavoriteList`, `/RecipeDetails/$idMeal`) so existing links keep working.
 - Page chrome (backdrop photo, nav, footer) lives in `src/components/site/SiteShell.tsx`; dark mode is a `.dark` class on the wrapper rendered by `ThemeProvider` in `src/lib/theme.tsx`.
