@@ -27,3 +27,4 @@ New recipes from users wait as "Pending" until an admin approves them. The admin
 
 ## Import from a link
 On **Add recipe**, paste the link of a recipe page and press *Import from link*. The form is filled in for you (name, ingredients, steps, photo). Check it, add the cuisine if it is empty, then publish. The source website is shown on the recipe page.
+"# zest-and-favorites" 
