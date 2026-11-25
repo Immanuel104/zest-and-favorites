@@ -27,4 +27,9 @@ New recipes from users wait as "Pending" until an admin approves them. The admin
 
 ## Import from a link
 On **Add recipe**, paste the link of a recipe page and press *Import from link*. The form is filled in for you (name, ingredients, steps, photo). Check it, add the cuisine if it is empty, then publish. The source website is shown on the recipe page.
-"# zest-and-favorites" 
+
+## Put it online with Vercel
+1. Make a free MongoDB Atlas cluster. Under *Database Access* add a user, and under *Network Access* allow `0.0.0.0/0` (Vercel has changing IPs). Copy the connection string and add a database name, e.g. `mongodb+srv://USER:PASS@cluster0.xxxx.mongodb.net/the-recipe`.
+2. Push this folder to a GitHub repository (`.env` is ignored on purpose).
+3. On vercel.com choose *Add New → Project*, import the repository, and before deploying add these *Environment Variables*: `MONGODB_URI`, `JWT_SECRET` (long random text), `ADMIN_EMAIL`.
+4. Press *Deploy*. Uploaded photos are stored inside MongoDB (max about 4 MB each).
